@@ -1,87 +1,81 @@
-(function (global) {
-    const SortLibrary = {};
+((global) => {
+    const SortUtil = {};
 
-    const isSorted = function (array, reversed) {
-        return reversed
-            ? array.every((value, index, item) => !index || item[index - 1] >= value)
-            : array.every((value, index, item) => !index || item[index - 1] <= value);
+    const isSorted = (arr, reverse) => {
+        return reverse
+            ? arr.every((value, i, array) => !i || array[i - 1] >= value)
+            : arr.every((value, i, array) => !i || array[i - 1] <= value);
     };
 
-    function getCompare(reversed) {
-        return reversed ? (left, right) => left < right : (left, right) => left > right;
-    }
+    const getComparator = (reverse) => {
+        return reverse ? (a, b) => a < b : (a, b) => a > b;
+    };
 
-    SortLibrary.bubbleSort = function (array, reversed) {
-        const compare = getCompare(reversed);
+    SortUtil.bubbleSort = (arr, reverse) => {
+        const compare = getComparator(reverse);
         let compareCount = 0;
         let swapCount = 0;
 
-        while (!isSorted(array, reversed)) {
-            for (let index = 0; index < array.length - 1; index++) {
+        while (!isSorted(arr, reverse)) {
+            for (let i = 0; i < arr.length - 1; i++) {
                 compareCount++;
-                if (compare(array[index], array[index + 1])) {
+                if (compare(arr[i], arr[i + 1])) {
                     swapCount++;
-                    let tempElem = array[index];
-                    array[index] = array[index + 1];
-                    array[index + 1] = tempElem;
+                    [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
                 }
             }
         }
 
-        console.log(`Compare count: ${compareCount}`);
-        console.log(`Swap count: ${swapCount}`);
-        return array;
-    }
+        console.log(`Number of comparisons: ${compareCount}`);
+        console.log(`Number of swaps: ${swapCount}`);
+        return arr;
+    };
 
-    SortLibrary.selectionSort = function (array, reversed) {
-        const compare = getCompare(!reversed);
+    SortUtil.selectionSort = (arr, reverse) => {
+        const compare = getComparator(!reverse);
         let compareCount = 0;
         let swapCount = 0;
 
-        for (let index = 0; index < array.length - 1; index++) {
-            let min = index;
-            for (let current = index + 1; current < array.length; current++) {
+        for (let i = 0; i < arr.length - 1; i++) {
+            let min = i;
+            for (let j = i + 1; j < arr.length; j++) {
                 compareCount++;
-                if (compare(array[current], array[min])) {
-                    min = current;
+                if (compare(arr[j], arr[min])) {
+                    min = j;
                 }
             }
 
             swapCount++;
-            let tempElem = array[index];
-            array[index] = array[min];
-            array[min] = tempElem;
+            [arr[i], arr[min]] = [arr[min], arr[i]];
         }
 
-        console.log(`Compare count: ${compareCount}`);
-        console.log(`Swap count: ${swapCount}`);
-        return array;
-    }
+        console.log(`Number of comparisons: ${compareCount}`);
+        console.log(`Number of swaps: ${swapCount}`);
+        return arr;
+    };
 
-    SortLibrary.insertionSort = function (array, reversed) {
-        const compare = getCompare(reversed);
+    SortUtil.insertionSort = (arr, reverse) => {
+        const compare = getComparator(reverse);
         let compareCount = 0;
         let swapCount = 0;
 
-        for (let index = 1; index < array.length; index++) {
-            let left = index - 1;
-            if (isSorted(array, reversed)) {
+        for (let i = 1; i < arr.length; i++) {
+            let j = i - 1;
+            if (isSorted(arr, reverse)) {
                 break;
             }
-            while (left > -1 && compare(array[left], array[left + 1])) {
+            while (j > -1 && compare(arr[j], arr[j + 1])) {
                 compareCount++;
                 swapCount++;
-                let tempElem = array[left + 1];
-                array[left + 1] = array[left];
-                array[left] = tempElem;
-                left--;
+                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+                j--;
             }
         }
 
-        console.log(`Compare count: ${compareCount}`);
-        console.log(`Swap count: ${swapCount}`);
-        return array;
-    }
+        console.log(`Number of comparisons: ${compareCount}`);
+        console.log(`Number of swaps: ${swapCount}`);
+        return arr;
+    };
 
-    global.SortLibrary = SortLibrary;
+    global.SortUtil = SortUtil;
 })(window);
