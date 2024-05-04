@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Game</title>
+        <link rel="stylesheet" href="../Practical_Work_2/reset-styles.css" />
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <div id="main-menu">
+            <h1>Game</h1>
+            <label for="game-difficulty">Choose difficulty:</label>
+            <select name="game-difficulty" id="game-difficulty">
+                <option value="" selected disabled hidden>Please choose an option</option>
+                <option value="Lazy">Lazy</option>
+                <option value="Medium">Medium</option>
+                <option value="Impossible">Impossible</option>
+            </select>
+            <label for="game-color">Choose color:</label>
+            <select name="game-color" id="game-color">
+                <option value="" selected disabled hidden>Please choose an option</option>
+                <option value="red">Red</option>
+                <option value="yellow">Yellow</option>
+                <option value="orange">Orange</option>
+            </select>
+            <button id="start-button">Start</button>
+        </div>
+        <div id="game-container">
+            <div>
+                <label for="game-score">Score: </label>
+                <span name="game-score" id="game-score">0</span>
+            </div>
+            <div>
+                <label for="click-time">Time left for click: </label>
+                <span name="click-time" id="click-time"></span>
+            </div>
+        </div>
+        <table id="scoreboard">
+            <tr>
+                <th>Difficulty</th>
+                <th>Score</th>
+            </tr>
+            <tbody></tbody>
+        </table>
+        <template id="score-template">
+            <tr>
+                <th>hello</th>
+                <th>1000</th>
+            </tr>
+        </template>
+        <div id="player-info"></div>
+        <script src="game-script.js"></script>
+    </body>
+</html>
